@@ -1,8 +1,9 @@
 package studentCoursesBackup.interfaces;
 
+/**
+ * @author Dhanashree V Borkar
+ */
 public interface CourseInfoInterface {
-	
-	
 	
 	public String getCourseName();
 	public int getCourseCapacity();
@@ -13,6 +14,5 @@ public interface CourseInfoInterface {
 	public void setCourseCapacity(int capacityIn);
 	public void setCourseTimeslot(int timeslotIn);
 	public void setCourseVacantSeats(int vacantSeatsIn);
-	
 	
 }
