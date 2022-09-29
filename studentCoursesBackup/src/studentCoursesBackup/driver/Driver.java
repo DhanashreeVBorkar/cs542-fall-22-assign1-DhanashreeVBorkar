@@ -2,23 +2,36 @@ package studentCoursesBackup.driver;
 
 // importing file
 import java.io.File;
+
+//importing exceptions
+import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.io.IOException;
+
 // importing scanner
 import java.util.Scanner;
 
+//importing  ArrayLList as we are using this data structure for storing data
 import java.util.ArrayList;
+
+//importing supporting classes within same package
 import studentCoursesBackup.models.CourseInfo;
 import studentCoursesBackup.util.Results;
+import studentCoursesBackup.util.FileProcessor;
 import studentCoursesBackup.models.Student;
-
 
 /**
  * @author Dhanashree V Borkar
  */
 public class Driver {
 
-	private static ArrayList<CourseInfo> courseInfoList ;
-	private static ArrayList<Student> studentAllocatedCourseList;
 
+	/**
+	* This class is for reading input from files and processing and 
+	* allocating courses as per student preferences, 
+	* it act as run point for this project as it has main method in it
+    * @param args
+	*/
 	public static void main(String[] args) {
 
 		/*
@@ -36,129 +49,57 @@ public class Driver {
 
 		//try block 
         try{    
-            
 			//allocating memory to Arraylist for storing couseInfo and Result
-			courseInfoList = new ArrayList<CourseInfo>();
-        	studentAllocatedCourseList = new ArrayList<Student>();
-            // java read file
+			ArrayList<CourseInfo> courseInfoList = new ArrayList<CourseInfo>();
+        	ArrayList<Student> studentAllocatedCourseList = new ArrayList<Student>();
+			//allocating memory to FileProcessor class, as it has methods to store courseinfo and allocate courses to students 
+			FileProcessor FileProcessorObj= new FileProcessor();
+            // reading file
 		    for (int i = 0; i < args.length; i++) {
 				//System.out.printf("args[%d]=%s\n", i, args[i]);
-            // File to be scanned
-			// java read file providing relative path
-		File file = new File("..//studentCoursesBackup//src//"+args[i]);
-      	Scanner myfile = new Scanner(file);
-      	//System.out.println("The file contains the following data:");
-      	// while loop to iterate
+				// read file providing relative path
+				File file = new File("..//studentCoursesBackup//src//"+args[i]);
+		      	Scanner myfile = new Scanner(file);
+    
+		      	/**While loop check each line and reading single line input each time and process it
+				 */
       			while (myfile.hasNextLine()){
       				//reading the data from input files
       				if(i==0) {
-      					//courseInfo.txt
-      					courseInfoList.add(storeCourseInfo(myfile.nextLine()));
+      					/** storing course info details to arraylist data structure to use it while accolating subjects
+						*processing input of courseInfo.txt
+						*/
+      					courseInfoList.add(FileProcessorObj.storeCourseInfo(myfile.nextLine()));
       				}else if(i==1) {
-      					//coursePrefs.txt
-      	      			Student studentObj= allocateCourses(courseInfoList,myfile.nextLine());
+      					/**processing input from coursePrefs.txt and allocating courses as per preferences line by line,
+						* one record at a time, not storing student preference anywhere directly processing it.
+						*/
+      	      			Student studentObj= FileProcessorObj.allocateCourses(courseInfoList,myfile.nextLine());
       	      			studentAllocatedCourseList.add(studentObj);
-      	      			
       				}
 	  				}
 			}
 			//printing results after course allocation
 			Results resultsObj = new Results();
+			/**Printing course distribution result */
 		    resultsObj.printStudentCourseDecisionResult(studentAllocatedCourseList);
+			/**Printing conflict errors occured during course distribution*/
+			resultsObj.printStudentErrResults(studentAllocatedCourseList);
+			resultsObj.printStudentConflictResults(studentAllocatedCourseList);
+
           // catch block to hadle the error
-          }catch(Exception e){
-            System.out.println("Error accurs!");
+          }catch(FileNotFoundException e){
 			e.printStackTrace();
-          }    		  				
-		
-	}
-
-	public static CourseInfo storeCourseInfo(String recordIn) {
-		
-		recordIn=recordIn.replace(" ","");
-		
-		String recordsArr[]= recordIn.split(":");
-		
-		CourseInfo courseInfoObj = new CourseInfo();
-		
-		if(recordsArr.length==3) {
+          }catch(IOException ioe){
+			ioe.printStackTrace();
+          }catch(Exception e){
+			e.printStackTrace();
+          }
+		   finally{
 			
-			courseInfoObj.setCourseName(recordsArr[0]);
-			courseInfoObj.setCourseCapacity(Integer.parseInt(recordsArr[1]));
-			courseInfoObj.setCourseVacantSeats(Integer.parseInt(recordsArr[1]));
-			courseInfoObj.setCourseTimeslot(Integer.parseInt(recordsArr[2]));
-		}
-		
-		return courseInfoObj;
-	}
-	
-
-	
-	public static Student allocateCourses(ArrayList<CourseInfo> courseInfoListIn, String studCoursePrefRecord) {
-		
-	
-		//obtained student record to process
-	
-		int allocatedSubCount =0;
-		Student studentObj= new Student();
-		
-		studCoursePrefRecord = studCoursePrefRecord.replace(";", "");
-		
-		String recordsArr[]= studCoursePrefRecord.split(" ");
-		if(recordsArr.length==10) {
-			studentObj.setStudentId(Integer.parseInt(recordsArr[0]));
-			for(int j=1;j<recordsArr.length;j++) {
-			for(int i=0;i<courseInfoListIn.size();i++) {
-				
-				
-					if(recordsArr[j].toString().equals(courseInfoListIn.get(i).getCourseName())) {
-						if(courseInfoListIn.get(i).getCourseVacantSeats()>0) {
-							if(allocatedSubCount==0) {
-								//allocate first sub
-								studentObj.setFirstCourse(""+recordsArr[j]);
-								studentObj.setFirstCourseScore(9-(j-1));
-								studentObj.setFirstCourseTime(courseInfoListIn.get(i).getCourseTimeslot());
-								
-							}else if(allocatedSubCount==1 && courseInfoListIn.get(i).getCourseTimeslot()!= studentObj.getFirstCourseTime() ) {
-								//allocate second sub
-								studentObj.setSecondCourse(recordsArr[j]);
-								studentObj.setSecondCourseScore(9-(j-1));
-								studentObj.setSecondCourseTime(courseInfoListIn.get(i).getCourseTimeslot());
-
-							}else if(allocatedSubCount ==2 && courseInfoListIn.get(i).getCourseTimeslot()!= studentObj.getFirstCourseTime() && courseInfoListIn.get(i).getCourseTimeslot()!= studentObj.getSecondCourseTime()) {
-								//allocate third sub
-								studentObj.setThirdCourse(recordsArr[j]);
-								studentObj.setThirdCourseScore(9-(j-1));
-								studentObj.setThirdCourseTime(courseInfoListIn.get(i).getCourseTimeslot());
-
-							}else {
-								break;
-							}
-							allocatedSubCount++;
-							int remainingVacantSeats= courseInfoListIn.get(i).getCourseVacantSeats();
-							remainingVacantSeats--;
-							courseInfoListIn.get(i).setCourseVacantSeats(remainingVacantSeats);
-
-						}else {
-							System.out.print("no vancant seats to allocate course");
-						}
-					}
-				}
-				
-			}
-			studentObj.setSatisfactionRating(calculateSatisfactionRating(studentObj));
-			
-		}
-		return studentObj;
-					
-	}
-
-	private static double calculateSatisfactionRating(Student studentObjIn) {
-		
-		double satisfactionRating= Double.parseDouble(""+(studentObjIn.getFirstCourseScore()+studentObjIn.getSecondCourseScore()+studentObjIn.getThirdCourseScore()))/3.0;
-		
-		return satisfactionRating;
+		  }   		  				
 		
 	}
+	
 
 }

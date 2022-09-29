@@ -6,10 +6,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
+
 
 import studentCoursesBackup.models.Student;
 
-
+/**
+ * @author Dhanashree V Borkar
+ */
 public class Results implements FileDisplayInterface, StdoutDisplayInterface {
 	@Override
 	public void printStudentCourseDecisionResult(ArrayList<Student> studListIn) {
@@ -41,13 +45,69 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface {
             writer.write("AverageSatisfactionRating= "+frmt.format(avgSatisfactionRating));
             writer.close();
         }
-        catch (IOException ioe) {
+        catch(FileNotFoundException fne){
+			fne.printStackTrace();
+		}catch (IOException ioe) {
             ioe.printStackTrace();
         }
 		catch (NumberFormatException e) {
 			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+
 		}
 		
+	}
+
+	@Override
+	public void printStudentErrResults(ArrayList<Student> studListIn){
+		
+		try {
+			FileWriter writer = new FileWriter(new File("..//studentCoursesBackup//src//Errors.txt"), false);
+			
+			
+			for(int i=0;i<studListIn.size();i++) {
+				String errMsg=studListIn.get(i).getErrMessage();
+				if(errMsg!=""){
+					writer.write(errMsg+"\n");
+				}
+				 
+			}
+            writer.close();
+        }
+        catch(FileNotFoundException fne){
+			fne.printStackTrace();
+		}catch (IOException ioe) {
+            ioe.printStackTrace();
+        }catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void printStudentConflictResults(ArrayList<Student> studListIn){
+		
+		try {
+			FileWriter writer = new FileWriter(new File("..//studentCoursesBackup//src//Conflicts.txt"), false);
+			
+			
+			for(int i=0;i<studListIn.size();i++) {
+				String errMsg=studListIn.get(i).getConflictMessage();
+				if(errMsg!=""){
+					writer.write(errMsg+"\n");
+				}
+				 
+			}
+            writer.close();
+        }
+        catch(FileNotFoundException fne){
+			fne.printStackTrace();
+		}catch (IOException ioe) {
+            ioe.printStackTrace();
+        }catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 

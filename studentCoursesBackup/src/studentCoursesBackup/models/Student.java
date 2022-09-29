@@ -2,21 +2,27 @@ package studentCoursesBackup.models;
 
 import studentCoursesBackup.interfaces.StudentInterface;
 
+/**
+ * @author Dhanashree V Borkar
+ */
 public class Student implements StudentInterface {
 
-	public int studentID= 0;
-	public String firstCourse = "";
-	public String secondCourse = "";
-	public String thirdCourse = "";
-	double satisfactionRating = 0f;
+	private int studentID= 0;
+	private String firstCourse = "";
+	private String secondCourse = "";
+	private String thirdCourse = "";
+	private double satisfactionRating = 0f;
 	
-	public float firstCourseScore =0;
-	public float secondCourseScore =0;
-	public float thirdCourseScore =0;
+	private float firstCourseScore =0;
+	private float secondCourseScore =0;
+	private float thirdCourseScore =0;
 	
-	public int firstCourseTime =0;
-	public int secondCourseTime =0;
-	public int thirdCourseTime =0;
+	private int firstCourseTime =0;
+	private int secondCourseTime =0;
+	private int thirdCourseTime =0;
+
+	private String conflictMsg="";
+	private String errMsg="";
 	
 	
 	
@@ -138,12 +144,34 @@ public class Student implements StudentInterface {
 	}
 
 	@Override
+	public String getConflictMessage(){
+		return conflictMsg;
+	}
+
+	@Override
+	public void setConflictMessage(String messageIn){
+	conflictMsg= messageIn;
+	}
+
+	@Override
+	public String getErrMessage(){
+		return errMsg;
+	}
+
+	@Override
+	public void setErrMessage(String messageIn){
+	errMsg= messageIn;
+	}
+
+
+
+	@Override
 	public String toString() {
 		return "Student [studentID=" + studentID + ", firstCourse=" + firstCourse + ", secondCourse=" + secondCourse
 				+ ", thirdCourse=" + thirdCourse + ", satisfactionRating=" + satisfactionRating + ", firstCourseScore="
 				+ firstCourseScore + ", secondCourseScore=" + secondCourseScore + ", thirdCourseScore="
 				+ thirdCourseScore + ", firstCourseTime=" + firstCourseTime + ", secondCourseTime=" + secondCourseTime
-				+ ", thirdCourseTime=" + thirdCourseTime + "]";
+				+ ", thirdCourseTime=" + thirdCourseTime + ", conflictMsg=" + conflictMsg + ", errMsg=" + errMsg + "]";
 	}
 	
 	

@@ -2,13 +2,15 @@ package studentCoursesBackup.models;
 
 import studentCoursesBackup.interfaces.CourseInfoInterface;
 
+/**
+ * @author Dhanashree V Borkar
+ */
 public class CourseInfo implements CourseInfoInterface {
 
 	private String courseName = "";
 	private int courseCapacity = 0;
 	private int courseTimeslot = 0;
 	private int courseVacantSaets = 0;
-	
 	
 	
 	@Override

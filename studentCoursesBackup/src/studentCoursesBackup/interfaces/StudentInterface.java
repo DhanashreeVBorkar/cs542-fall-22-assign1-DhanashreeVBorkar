@@ -1,8 +1,9 @@
 package studentCoursesBackup.interfaces;
 
+/**
+ * @author Dhanashree V Borkar
+ */
 public interface StudentInterface {
-	
-	
 	
 	public void setStudentId(int studentIDIn);
 	public void setFirstCourse(String firstCourseIn);
@@ -22,9 +23,14 @@ public interface StudentInterface {
 	public float getSecondCourseScore();
 	public float getThirdCourseScore();
 	
-	
 	public double calculateAvgSatisfactionRating();
 	void setSatisfactionRating(double satisfactionRatingIN);
 	public double getSatisfactionRating();
+
+	public String getConflictMessage();
+	public void setConflictMessage(String messageIn);
+
+	public String getErrMessage();
+	public void setErrMessage(String messageIn);
 
 }

@@ -26,7 +26,7 @@ Description: Compiles your code and generates .class files inside the BUILD fold
 -----------------------------------------------------------------------
 ## Instruction to run:
 
-####Command: ant -buildfile studentCoursesBackup/src/build.xml run -Darg0=<input_file.txt> -Darg1=<delete_file.txt> -Darg2=<output1_file.txt> -Darg3=<output2_file.txt> -Darg4=<output3_file.txt>
+####Command: ant -buildfile studentCoursesBackup/src/build.xml run -Darg0=courseInfo.txt -Darg1=coursePrefs.txt -Darg2=<output1_file.txt> -Darg3=<output2_file.txt> -Darg4=<output3_file.txt>
 
 ## Replace <fileName.txt> with real file names. For example, if the files are available in the path,
 ## you can run it in the following manner:
@@ -52,6 +52,6 @@ grade of 0 for the involved assignment for my first offense and that I
 will receive a grade of F for the course for any additional
 offense.""
 
-Date: -- 
+Date: 29 Sep 2022
 
 
