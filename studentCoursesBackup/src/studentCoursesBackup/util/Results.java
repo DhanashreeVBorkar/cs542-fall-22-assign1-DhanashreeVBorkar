@@ -20,7 +20,8 @@ import studentCoursesBackup.models.Student;
 public class Results implements FileDisplayInterface, StdoutDisplayInterface {
 
 	/**
-	* printStudentCourseDecisionResult method is used for printing CourseDecision in registration_results.txt
+	* printStudentCourseDecisionResult method is used for
+	*  printing CourseDecision in registration_results.txt
     * @param studListIn (which is ArrayList<Student>)
     * @return void
 	*/
@@ -71,7 +72,8 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface {
 
 
 /**
-	* printStudentErrResults method is used for printing errors in errors.txt
+	* printStudentErrResults method is used for printing 
+	* errors in errors.txt
     * @param studListIn (which is ArrayList<Student>)
     * @return void
 	*/
@@ -101,7 +103,8 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface {
 
 
 /**
-	* printStudentConflictResults method is used for printing conflicts in conflicts.txt
+	* printStudentConflictResults method is used for printing 
+	* conflicts in conflicts.txt
     * @param studListIn (which is ArrayList<Student>)
     * @return void
 	*/

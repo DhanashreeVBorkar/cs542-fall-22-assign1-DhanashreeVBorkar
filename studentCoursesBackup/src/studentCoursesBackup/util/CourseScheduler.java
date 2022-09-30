@@ -3,7 +3,8 @@ package studentCoursesBackup.util;
 //importing interface 
 import studentCoursesBackup.interfaces.CourseSchedulerInterface;
 
-//importing  ArrayLList as we are using this data structure for storing data
+//importing  ArrayLList as we are using this data
+// structure for storing data
 import java.util.ArrayList;
 
 //importing supporting classes within same package
@@ -17,8 +18,9 @@ import studentCoursesBackup.models.Student;
 public class CourseScheduler implements CourseSchedulerInterface{
 
 /**
-	* storeCourseInfo method is used for reading input from courseInfo.txt file and 
-    * store values in courseInfo object and returns it to FileProcessor
+	* storeCourseInfo method is used for reading input from 
+    * courseInfo.txt file and store values in courseInfo object
+    * and returns it to FileProcessor
     * @param recordIn
     * @return CourseInfo object
 	*/
@@ -29,7 +31,8 @@ public CourseInfo storeCourseInfo(String recordIn) {
 		
 		String recordsArr[]= recordIn.split(":");
 		
-        // allocating memory to CourseInfo Object to store course details provided in input file
+        /** allocating memory to CourseInfo Object to
+        *  store course details provided in input file*/
 		CourseInfo courseInfoObj = new CourseInfo();
 		try{
 
@@ -58,8 +61,9 @@ public CourseInfo storeCourseInfo(String recordIn) {
 	
 
 /**
-	* allocateCourses method is used for allocating courses to Students by taking
-    * their input from fileprocessor and store the result in Student object and return
+	* allocateCourses method is used for allocating courses
+    * to Students by taking their input from fileprocessor 
+    * and store the result in Student object and return
     * @param courseInfoListIn , studCoursePrefRecord
     * @return Student object
 	*/
@@ -69,7 +73,8 @@ public CourseInfo storeCourseInfo(String recordIn) {
 	
 		//obtained student record to process
 	
-        // maintaining counter to keep track of allocated courses per student
+        // maintaining counter to keep track of allocated 
+        //courses per student
 		int allocatedSubCount =0;
 
 		Student studentObj= new Student();
@@ -103,7 +108,9 @@ public CourseInfo storeCourseInfo(String recordIn) {
 								studentObj.setSecondCourseScore(9-(j-1));
 								studentObj.setSecondCourseTime(courseInfoListIn.get(i).getCourseTimeslot());
 								}else{
-									// preferred course time is conflicting with previously allocated course, so adding conflict message
+								// preferred course time is conflicting
+                                //with previously allocated course, so 
+                                //adding conflict message
 									conflictString=""+recordsArr[j].toString()+" cousrse time is clashing with other allocated course "+studentObj.getFirstCourse();
 								}
 
@@ -114,7 +121,10 @@ public CourseInfo storeCourseInfo(String recordIn) {
 								studentObj.setThirdCourseScore(9-(j-1));
 								studentObj.setThirdCourseTime(courseInfoListIn.get(i).getCourseTimeslot());
 								}else{
-                                    // preferred course time is conflicting with previously allocated course, so adding conflict message
+                                    // preferred course time is 
+                                    //conflicting with previously
+                                    // allocated course, 
+                                    //so adding conflict message
 									conflictString=conflictString+recordsArr[j].toString()+" cousrse time is clashing with other allocated course "+studentObj.getFirstCourse()+" or course "+studentObj.getSecondCourse();
 								}
 							}else {
@@ -124,11 +134,14 @@ public CourseInfo storeCourseInfo(String recordIn) {
 							allocatedSubCount++;
 							int remainingVacantSeats= courseInfoListIn.get(i).getCourseVacantSeats();
 							remainingVacantSeats--;
-                            // updating total vacant seats for perticular course
+                            // updating total vacant seat for perticular 
+                            //course
 							courseInfoListIn.get(i).setCourseVacantSeats(remainingVacantSeats);
 
 						}else {
-                            // preferred course capacity is over i.e. no vancant seats for course, so adding err message
+                            // preferred course capacity is over i.e. 
+                            //no vancant seats for course, so adding 
+                            //err message
 							errString=errString +"no vancant seats in course "+courseInfoListIn.get(i).getCourseName()+" to allocate ";
 						}
 					}
@@ -161,7 +174,8 @@ public CourseInfo storeCourseInfo(String recordIn) {
 	}
 
 /**
-	* calculateSatisfactionRating method is used for calculating individual student satisfaction rating 
+	* calculateSatisfactionRating method is used for calculating
+    * individual student satisfaction rating 
     * and return its result in double
     * @param studentObjIn
     * @return double
@@ -170,7 +184,8 @@ public CourseInfo storeCourseInfo(String recordIn) {
 	public double calculateSatisfactionRating(Student studentObjIn) {
         double satisfactionRating = 0d;
 		try{
-        // calculating satisfaction rating for each students assigned courses by considering their course preference number
+        // calculating satisfaction rating for each students 
+        //assigned courses by considering their course preference number
 		satisfactionRating= Double.parseDouble(""+(studentObjIn.getFirstCourseScore()+studentObjIn.getSecondCourseScore()+studentObjIn.getThirdCourseScore()))/3.0;
         
 		
