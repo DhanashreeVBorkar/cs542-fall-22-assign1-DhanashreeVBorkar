@@ -5,12 +5,8 @@ package studentCoursesBackup.util;
  */
 public class Constants {
 
+    // currently not using constants class will use it in future to keep all constants at one place
+
     public static String TAG = "studentCoursesBackup";
-    
-    // Error Messages
-    
-    public static String invalidInputErrMsg = "INVALID INPUT";
-    
-    
-    
+     
 }

@@ -2,140 +2,87 @@ package studentCoursesBackup.util;
 
 import java.util.ArrayList;
 
+//importing supporting classes within same package
 import studentCoursesBackup.models.CourseInfo;
 import studentCoursesBackup.models.Student;
 
+//importing exceptions
 import java.io.FileNotFoundException;
+import java.io.IOException;
+
+
+// importing file
+import java.io.File;
+
+// importing scanner
+import java.util.Scanner;
+
+import studentCoursesBackup.interfaces.FileProcessorInterface;
 
 
 /**
  * @author Dhanashree V Borkar
  */
-public class FileProcessor {
-	
-    public  CourseInfo storeCourseInfo(String recordIn) {
-		
-		recordIn=recordIn.replace(" ","");
-		
-		String recordsArr[]= recordIn.split(":");
-		
-		CourseInfo courseInfoObj = new CourseInfo();
-		try{
-		if(recordsArr.length==3) {
+public class FileProcessor implements FileProcessorInterface {
+
+
+/**
+	* readInputFromFileAndProcess method is used for reading input from file and process it with CourseScheduler methods
+    * @param args
+    * @return ArrayList<Student>
+	*/
+	@Override
+	public ArrayList<Student> readInputFromFileAndProcess(String [] args){
+
+		//allocating memory to Arraylist for storing couseInfo and Result
+		ArrayList<CourseInfo> courseInfoList = new ArrayList<CourseInfo>();
+        ArrayList<Student> studentAllocatedCourseList = new ArrayList<Student>();
+
+		//try block 
+        try{    
 			
-			courseInfoObj.setCourseName(recordsArr[0]);
-			courseInfoObj.setCourseCapacity(Integer.parseInt(recordsArr[1]));
-			courseInfoObj.setCourseVacantSeats(Integer.parseInt(recordsArr[1]));
-			courseInfoObj.setCourseTimeslot(Integer.parseInt(recordsArr[2]));
-		}
-        }catch(ArrayIndexOutOfBoundsException e) {
-			e.printStackTrace();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally{
-
-        }
-		return courseInfoObj;
-	}
-	
-
-	
-	public  Student allocateCourses(ArrayList<CourseInfo> courseInfoListIn, String studCoursePrefRecord) {
-		
-	
-		//obtained student record to process
-	
-		int allocatedSubCount =0;
-		Student studentObj= new Student();
-		String errString="";
-		String conflictString="";
-		
-        try{
-		studCoursePrefRecord = studCoursePrefRecord.replace(";", "");
-		
-		String recordsArr[]= studCoursePrefRecord.split(" ");
-		if(recordsArr.length==10) {
-			studentObj.setStudentId(Integer.parseInt(recordsArr[0]));
-			for(int j=1;j<recordsArr.length;j++) {
-			for(int i=0;i<courseInfoListIn.size();i++) {
-				
-				
-					if(recordsArr[j].toString().equals(courseInfoListIn.get(i).getCourseName())) {
-						
-						if(courseInfoListIn.get(i).getCourseVacantSeats()>0) {
-							if(allocatedSubCount==0) {
-								//allocate first sub
-								studentObj.setFirstCourse(""+recordsArr[j]);
-								studentObj.setFirstCourseScore(9-(j-1));
-								studentObj.setFirstCourseTime(courseInfoListIn.get(i).getCourseTimeslot());
-								
-							}else if(allocatedSubCount==1  ) {
-								if(courseInfoListIn.get(i).getCourseTimeslot()!= studentObj.getFirstCourseTime()){
-								//allocate second sub
-								studentObj.setSecondCourse(recordsArr[j]);
-								studentObj.setSecondCourseScore(9-(j-1));
-								studentObj.setSecondCourseTime(courseInfoListIn.get(i).getCourseTimeslot());
-								}else{
-									
-									conflictString=""+recordsArr[j].toString()+" cousrse time is clashing with other allocated course "+studentObj.getFirstCourse();
-								}
-
-							}else if(allocatedSubCount ==2) {
-								//allocate third sub
-								if(courseInfoListIn.get(i).getCourseTimeslot()!= studentObj.getFirstCourseTime() && courseInfoListIn.get(i).getCourseTimeslot()!= studentObj.getSecondCourseTime()){
-								studentObj.setThirdCourse(recordsArr[j]);
-								studentObj.setThirdCourseScore(9-(j-1));
-								studentObj.setThirdCourseTime(courseInfoListIn.get(i).getCourseTimeslot());
-								}else{
-									conflictString=conflictString+recordsArr[j].toString()+" cousrse time is clashing with other allocated course "+studentObj.getFirstCourse()+" or course "+studentObj.getSecondCourse();
-									System.out.println("conflictString="+conflictString);
-								}
-							}else {
-								break;
-							}
-							allocatedSubCount++;
-							int remainingVacantSeats= courseInfoListIn.get(i).getCourseVacantSeats();
-							remainingVacantSeats--;
-							courseInfoListIn.get(i).setCourseVacantSeats(remainingVacantSeats);
-
-						}else {
-							errString=errString +"no vancant seats in course "+courseInfoListIn.get(i).getCourseName()+" to allocate ";
-							System.out.println("errString3="+errString);
-						}
-					}
-				}
-				
-			}
-			studentObj.setSatisfactionRating(calculateSatisfactionRating(studentObj));
-			if(errString!=""){
-				studentObj.setErrMessage(""+studentObj.getStudentID()+" "+errString);
-			}
-			if(conflictString!=""){
-				studentObj.setConflictMessage(""+studentObj.getStudentID()+" "+conflictString);
+			//allocating memory to courseScheduler class object, as it has methods to store courseinfo and allocate courses to students 
+			CourseScheduler courseSchedulerObj= new CourseScheduler();
+            // reading file
+		    for (int i = 0; i < args.length; i++) {
+				//System.out.printf("args[%d]=%s\n", i, args[i]);
+				// read file providing relative path
+				File file = new File("..//studentCoursesBackup//src//"+args[i]);
+		      	Scanner myfile = new Scanner(file);
+    
+		      	/**While loop check each line and reading single line input each time and process it
+				 */
+      			while (myfile.hasNextLine()){
+      				//reading the data from input files
+      				if(i==0) {
+      					/** storing course info details to arraylist data structure to use it while accolating subjects
+						*processing input of courseInfo.txt
+						*/
+      					courseInfoList.add(courseSchedulerObj.storeCourseInfo(myfile.nextLine()));
+      				}else if(i==1) {
+      					/**processing input from coursePrefs.txt and allocating courses as per preferences line by line,
+						* one record at a time, not storing student preference anywhere directly processing it.
+						*/
+      	      			Student studentObj= courseSchedulerObj.allocateCourses(courseInfoList,myfile.nextLine());
+      	      			studentAllocatedCourseList.add(studentObj);
+      				}
+	  				}
 			}
 			
-		}
-        }catch(ArrayIndexOutOfBoundsException e) {
-			e.printStackTrace();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally{}
+			return studentAllocatedCourseList;
 
-		return studentObj;
-					
-	}
-
-	private  double calculateSatisfactionRating(Student studentObjIn) {
-        double satisfactionRating = 0d;
-		try{
-		satisfactionRating= Double.parseDouble(""+(studentObjIn.getFirstCourseScore()+studentObjIn.getSecondCourseScore()+studentObjIn.getThirdCourseScore()))/3.0;
-        
+          // catch block to hadle the error
+          }catch(FileNotFoundException e){
+			e.printStackTrace();
+          }catch(Exception e){
+			e.printStackTrace();
+          }
+		   finally{
+			
+		  } 
+		  return studentAllocatedCourseList;  		  				
 		
-        }catch(NumberFormatException e) {
-			e.printStackTrace();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally{}
-        return satisfactionRating;
 	}
+	
+    
 }

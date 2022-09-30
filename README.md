@@ -1,5 +1,5 @@
 # CSX42: Assignment 1
-## Name: 
+## Name: Dhanashree Vinayak Borkar
 
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
@@ -26,17 +26,27 @@ Description: Compiles your code and generates .class files inside the BUILD fold
 -----------------------------------------------------------------------
 ## Instruction to run:
 
-####Command: ant -buildfile studentCoursesBackup/src/build.xml run -Darg0=courseInfo.txt -Darg1=coursePrefs.txt -Darg2=<output1_file.txt> -Darg3=<output2_file.txt> -Darg4=<output3_file.txt>
+####Command: ant -buildfile studentCoursesBackup/src/build.xml run -Darg0=courseInfo.txt -Darg1=coursePrefs.txt -Darg2=registration_results.txt -Darg3=conflicts.txt -Darg4=errors.txt
+
+
 
 ## Replace <fileName.txt> with real file names. For example, if the files are available in the path,
 ## you can run it in the following manner:
 
-ant -buildfile studentCoursesBackup/src/build.xml run -Darg0=input_file.txt -Darg1=delete_file.txt -Darg2=output1_file.txt -Darg3=output2_file.txt -Darg4=output3_file.txt
+ ant -buildfile studentCoursesBackup/src/build.xml run -Darg0=courseInfo.txt -Darg1=coursePrefs.txt -Darg2=registration_results.txt -Darg3=conflicts.txt -Darg4=errors.txt
+
 
 Note: Arguments accept the absolute path of the files.
 
 -----------------------------------------------------------------------
 ## Description:
+
+1. For reading input from text file used Scanner, reading single line input and processing it.
+2. Used ArrayList Data Structure for storing and processing CourseInfo , Not storing CoursePreferences anywhere , directly processing them one by one
+3. Using 2 nested for loops for distributing / allocating courses, so time complexity is O(n)^2 (CourseScheduler class has the methods to allocate courses)
+    3.1 first for loop is for reading coursePreference one by one
+    3.2 second for loop is for comparing and validating courseinfo for allocating preference course to student
+4.Used FileWriter for printing results in output.txt files like regidtration_results.txt, errors.tct and conflicts.txt
 
 
 -----------------------------------------------------------------------

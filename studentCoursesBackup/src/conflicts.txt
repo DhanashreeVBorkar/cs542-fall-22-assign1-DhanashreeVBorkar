@@ -8,7 +8,7 @@
 601 D cousrse time is clashing with other allocated course F or course A
 858 I cousrse time is clashing with other allocated course B or course I
 743 H cousrse time is clashing with other allocated course H or course G
-363 F cousrse time is clashing with other allocated course I or course F
+363 I cousrse time is clashing with other allocated course II cousrse time is clashing with other allocated course I or course 
 686 I cousrse time is clashing with other allocated course G or course I
 501 H cousrse time is clashing with other allocated course HH cousrse time is clashing with other allocated course H or course 
 454 A cousrse time is clashing with other allocated course A or course E
@@ -16,27 +16,35 @@
 682 H cousrse time is clashing with other allocated course H
 961 D cousrse time is clashing with other allocated course H or course D
 277 I cousrse time is clashing with other allocated course I or course E
-261 F cousrse time is clashing with other allocated course F or course G
+308 G cousrse time is clashing with other allocated course C or course I
+261 G cousrse time is clashing with other allocated course G
 700 G cousrse time is clashing with other allocated course GC cousrse time is clashing with other allocated course G or course 
-798 F cousrse time is clashing with other allocated course H or course F
 772 H cousrse time is clashing with other allocated course E or course D
 132 C cousrse time is clashing with other allocated course G
 429 B cousrse time is clashing with other allocated course H or course B
 802 G cousrse time is clashing with other allocated course A or course G
 933 C cousrse time is clashing with other allocated course A or course G
+736 E cousrse time is clashing with other allocated course G or course H
 757 E cousrse time is clashing with other allocated course H
 444 H cousrse time is clashing with other allocated course E or course A
 644 H cousrse time is clashing with other allocated course E
+403 H cousrse time is clashing with other allocated course D or course E
 647 B cousrse time is clashing with other allocated course G or course B
 168 A cousrse time is clashing with other allocated course I or course D
 945 C cousrse time is clashing with other allocated course G or course D
 443 D cousrse time is clashing with other allocated course D or course G
+108 D cousrse time is clashing with other allocated course A or course G
 813 A cousrse time is clashing with other allocated course A
 293 D cousrse time is clashing with other allocated course D or course G
 423 E cousrse time is clashing with other allocated course E
-360 G cousrse time is clashing with other allocated course G
+360 G cousrse time is clashing with other allocated course GC cousrse time is clashing with other allocated course G or course 
 221 D cousrse time is clashing with other allocated course G or course A
-219 G cousrse time is clashing with other allocated course C
-693 C cousrse time is clashing with other allocated course F or course C
+617 E cousrse time is clashing with other allocated course D or course H
+709 A cousrse time is clashing with other allocated course D or course G
+714 H cousrse time is clashing with other allocated course D or course H
+503 G cousrse time is clashing with other allocated course H or course G
+668 H cousrse time is clashing with other allocated course D or course E
+219 G cousrse time is clashing with other allocated course CC cousrse time is clashing with other allocated course C or course 
+693 C cousrse time is clashing with other allocated course C
 287 H cousrse time is clashing with other allocated course E
 559 C cousrse time is clashing with other allocated course H or course G
