@@ -1,20 +1,29 @@
 package studentCoursesBackup.util;
 
-
 import java.io.File;
 import java.io.FileWriter;
+
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.io.FileNotFoundException;
 
+import java.text.DecimalFormat;
 
+import java.util.ArrayList;
+
+//importing supporting classes within same package
+import studentCoursesBackup.interfaces.FileDisplayInterface;
 import studentCoursesBackup.models.Student;
 
 /**
  * @author Dhanashree V Borkar
  */
 public class Results implements FileDisplayInterface, StdoutDisplayInterface {
+
+	/**
+	* printStudentCourseDecisionResult method is used for printing CourseDecision in registration_results.txt
+    * @param studListIn (which is ArrayList<Student>)
+    * @return void
+	*/
 	@Override
 	public void printStudentCourseDecisionResult(ArrayList<Student> studListIn) {
 		// TODO Auto-generated method stub
@@ -44,7 +53,7 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface {
             avgSatisfactionRating=avgSatisfactionRating/studListIn.size();
             writer.write("AverageSatisfactionRating= "+frmt.format(avgSatisfactionRating));
             writer.close();
-        }
+        }// handling exceptions
         catch(FileNotFoundException fne){
 			fne.printStackTrace();
 		}catch (IOException ioe) {
@@ -60,12 +69,17 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface {
 		
 	}
 
+
+/**
+	* printStudentErrResults method is used for printing errors in errors.txt
+    * @param studListIn (which is ArrayList<Student>)
+    * @return void
+	*/
 	@Override
 	public void printStudentErrResults(ArrayList<Student> studListIn){
 		
 		try {
-			FileWriter writer = new FileWriter(new File("..//studentCoursesBackup//src//Errors.txt"), false);
-			
+			FileWriter writer = new FileWriter(new File("..//studentCoursesBackup//src//errors.txt"), false);
 			
 			for(int i=0;i<studListIn.size();i++) {
 				String errMsg=studListIn.get(i).getErrMessage();
@@ -75,7 +89,7 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface {
 				 
 			}
             writer.close();
-        }
+        }// handling exceptions
         catch(FileNotFoundException fne){
 			fne.printStackTrace();
 		}catch (IOException ioe) {
@@ -85,11 +99,17 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface {
 		}
 	}
 
+
+/**
+	* printStudentConflictResults method is used for printing conflicts in conflicts.txt
+    * @param studListIn (which is ArrayList<Student>)
+    * @return void
+	*/
 	@Override
 	public void printStudentConflictResults(ArrayList<Student> studListIn){
 		
 		try {
-			FileWriter writer = new FileWriter(new File("..//studentCoursesBackup//src//Conflicts.txt"), false);
+			FileWriter writer = new FileWriter(new File("..//studentCoursesBackup//src//conflicts.txt"), false);
 			
 			
 			for(int i=0;i<studListIn.size();i++) {
@@ -101,6 +121,7 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface {
 			}
             writer.close();
         }
+		// handling exceptions
         catch(FileNotFoundException fne){
 			fne.printStackTrace();
 		}catch (IOException ioe) {
