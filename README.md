@@ -43,7 +43,7 @@ Note: Arguments accept the absolute path of the files.
 
 1. For reading input from text file used Scanner, reading single line input and processing it.
 2. Used ArrayList Data Structure for storing and processing CourseInfo , Not storing CoursePreferences anywhere , directly processing them one by one
-3. Using 2 nested for loops for distributing / allocating courses, so time complexity is O(n)^2 (CourseScheduler class has the methods to allocate courses)
+3. Using 2 nested for loops for distributing / allocating courses, so time complexity is O(n)^2 (CourseScheduler class has the methods to allocate courses), space complexity is O(n).
     3.1 first for loop is for reading coursePreference one by one
     3.2 second for loop is for comparing and validating courseinfo for allocating preference course to student
 4.Used FileWriter for printing results in output.txt files like regidtration_results.txt, errors.tct and conflicts.txt
