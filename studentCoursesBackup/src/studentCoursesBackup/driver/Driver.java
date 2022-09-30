@@ -44,7 +44,6 @@ public class Driver {
 			System.err.println("Error: Incorrect number of arguments. Program accepts 5 argumnets.");
 			System.exit(0);
 		}
-		System.out.println("Please check result in registration_results.txt, error.txt and conflicts.txt");
 
 		/**creating object of FileProcessor as it reads the imput and 
 		*passes data to courseScheduler to process further */
@@ -65,7 +64,8 @@ public class Driver {
 			resultsObj.printStudentConflictResults(studentAllocatedCourseList);
 
 
-	
+			System.out.println("Please check result in registration_results.txt, error.txt and conflicts.txt");
+
 	//handled exceptions
 	}catch(ArrayIndexOutOfBoundsException aie){
 		aie.printStackTrace();
