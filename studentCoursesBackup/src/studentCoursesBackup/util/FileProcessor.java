@@ -74,6 +74,7 @@ public class FileProcessor implements FileProcessorInterface {
       	      			Student studentObj= courseSchedulerObj.allocateCourses(courseInfoList,myfile.nextLine());
       	      			studentAllocatedCourseList.add(studentObj);
       				}
+					else{break;}
 	  				}
 			}
 			
